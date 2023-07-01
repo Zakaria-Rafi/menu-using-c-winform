@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
@@ -19,6 +19,8 @@ namespace WinFormsApp2
         private Button dropdownButton1;
         private Button dropdownButton2;
         private Panel panel1;
+        private Button toggleMenuButton;
+        private bool isMenuVisible;
 
 
         public Form1()
@@ -31,8 +33,40 @@ namespace WinFormsApp2
             targetHeight = 0;
 
             InitializeDropdownPanel();
-        }
+            InitializeToggleMenuButton();
 
+        }
+        private void InitializeToggleMenuButton()
+        {
+            toggleMenuButton = new Button();
+            toggleMenuButton.Text = "▲";
+            toggleMenuButton.Size = new Size(40, 40);
+            toggleMenuButton.Location = new Point(10, 10);
+            toggleMenuButton.FlatStyle = FlatStyle.Flat;
+            toggleMenuButton.ForeColor = Color.White;
+            toggleMenuButton.BackColor = Color.FromArgb(53, 59, 72);
+            toggleMenuButton.FlatAppearance.BorderSize = 0;
+            toggleMenuButton.Click += ToggleMenuButton_Click;
+            panel3.Controls.Add(toggleMenuButton);
+        }
+        private void ToggleMenuButton_Click(object sender, EventArgs e)
+        {
+            if (isMenuVisible)
+            {
+                panel2.Visible = false;
+                panel3.Visible = true;
+                panel3.Dock = DockStyle.Fill;
+                toggleMenuButton.Text = "▲";
+            }
+            else
+            {
+                panel2.Visible = true;
+                panel3.Dock = DockStyle.None;
+                toggleMenuButton.Text = "▼";
+            }
+
+            isMenuVisible = !isMenuVisible;
+        }
         private void InitializeDropdownPanel()
         {
             dropdownPanel1 = new Panel();
